@@ -6,7 +6,8 @@ dp = Dispatcher()
 
 @dp.message()
 async def echo_handler(message: types.Message) -> None:
-    await message.send_copy(chat_id=message.chat.id)
+    # await message.send_copy(chat_id=message.chat.id)
+    await message.answer("Я тебя люблю :3")
 
 
 async def main() -> None:
