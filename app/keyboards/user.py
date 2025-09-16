@@ -4,7 +4,7 @@ start_menu = ReplyKeyboardMarkup(
     resize_keyboard=True,
     keyboard=[
         [
-            [KeyboardButton(text='Показать товары', callback_data='show_product')],
+            [KeyboardButton(text='Показать товары')],
             [KeyboardButton(text='Посмотреть корзину')],
             [KeyboardButton(text='Мои заказы')]
          ]

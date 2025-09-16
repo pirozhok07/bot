@@ -19,5 +19,5 @@ async def show_product_handler(message: Message):
 
 def register_handlers():
     router.message.register(start_handler, CommandStart())
-    router.message.register(show_product_handler, Command('show_product'))
-    # router.message.register(menu_handler, F.text == 'menu')
+    # router.message.register(show_product_handler, Command('show_product'))
+    router.message.register(show_product_handler, F.text == 'Показать товары')
