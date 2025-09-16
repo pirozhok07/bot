@@ -1,38 +1,59 @@
 import asyncio
 import sys
-import html
 
 from loguru import logger
+from os import environ
 
-from aiogram import Bot, Dispatcher, types
+from aiogram import Bot, Dispatcher
+from aiogram.client.default import DefaultBotProperties
+from aiogram.enums import ParseMode
 
-import app.keyboards.user as kb
+# from filters.chat_type import ChatTypeFilter
+# from middlewares.logger import LoggerMiddleware
+from core.router_manager import setup_routers
 
-dp = Dispatcher()
-
-
-# @dp.message()
-# async def echo_handler(message: types.Message) -> None:
-#     # await message.send_copy(chat_id=message.chat.id)
-#     await message.answer("Я тебя люблю :3")
-
-#@dp.message()
-async def start_handler(message: types.Message):
-    # await repo.create_user(user_id=message.from_user.id)
-    await message.answer(f'Hi, {html.escape(message.from_user.full_name)}',
-                         reply_markup=kb.start_menu)
-    
+from core.config import Settings
+# from src.core.db import db
 
 
-async def main() -> None:
+async def main():
     logger.add(sys.stderr, format="{time} {level} {message}", filter="template", level="INFO")
-    
+
+    environ['TZ'] = 'Europe/Moscow'
     logger.error("Starting bot")
+    config = Settings()
+    router = setup_routers()
 
-    token = "8283170152:AAERIfVjJATqd2scCD5UVL7E2uwhjofdUdM"
-    bot = Bot(token)
-    await dp.start_polling(bot)
+    bot = Bot(token=config.BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+
+    bot_info = await bot.get_me()
+
+    # await db.connect()
+
+    # dp = Dispatcher(config=config, bot_info=bot_info, db=db)
+    dp = Dispatcher(config=config, bot_info=bot_info)
+    dp.include_routers(router)
+
+    # dp.update.outer_middleware(LoggerMiddleware())
+
+    # dp.message.filter(
+    #     ChatTypeFilter(chat_type=["private"])
+    # )
+
+    try:
+        logger.error(f'Bot {bot_info.full_name} started (@{bot_info.username}. ID: {bot_info.id})')
+        await dp.start_polling(bot)
+    finally:
+        await bot.session.close()
+        # await db.close()
 
 
-if __name__ == "__main__":
-    asyncio.run(main())
+def cli():
+    try:
+        asyncio.run(main())
+    except (KeyboardInterrupt, SystemExit):
+        logger.error("Bot stopped!")
+
+
+if __name__ == '__main__':
+    cli()
