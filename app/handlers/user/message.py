@@ -20,6 +20,7 @@ async def show_goods_handler(message: Message):
     await message.answer('Категории', reply_markup=kb.category_menu)
 
 async def show_category(message: Message):
+    await for_db.check_table_products()
     await for_db.add_items_into_table_products()
     await message.answer(for_db.get_categories())
 
