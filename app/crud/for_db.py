@@ -67,7 +67,7 @@ async def add_items_into_table_products():
     await db.execute('''
             INSERT INTO products (product_id, name, price, description, category, is_available)
                                VALUES(?, ?, ?, ?, ?,?)
-                               ''', SAMPLE_PRODUCTS)
+                               ''', SAMPLE_PRODUCTS,)
     logger.error("add items into table products")
 
 async def get_categories():
