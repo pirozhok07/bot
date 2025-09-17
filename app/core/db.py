@@ -1,6 +1,6 @@
 import aiosqlite
 
-from .config import Settings
+from config import Settings
 
 
 class DBConnect:
@@ -8,6 +8,11 @@ class DBConnect:
         self.db_url = db_url
         self.connection: aiosqlite.Connection = None
         self.cursor: aiosqlite.Cursor = None
+        
+
+    async def connect(self):
+        self.connection = await aiosqlite.connect(self.db_url)
+        self.cursor = await self.connection.cursor()
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS customers(
                        customer_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -16,10 +21,6 @@ class DBConnect:
                        username TEXT,
                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)
                        ''')
-
-    async def connect(self):
-        self.connection = await aiosqlite.connect(self.db_url)
-        self.cursor = await self.connection.cursor()
 
     async def close(self):
         await self.cursor.close()
