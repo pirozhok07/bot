@@ -1,4 +1,4 @@
-import db
+from core.db import db
 
 
 async def get_user(user_id: int):
