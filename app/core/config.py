@@ -16,9 +16,9 @@ class Settings(BaseSettings):
         env_file_encoding = "utf-8"
         case_sensitive = False
 
-    # def get_db_url(self) -> str:
-    #     db_path = Path(__file__).resolve().parent.parent / "db" / "db.db"
-    #     return db_path
+    def get_db_url(self) -> str:
+        db_path = Path(__file__).resolve().parent.parent / "db" / "db.db"
+        return db_path
 
 
 settings = Settings()
