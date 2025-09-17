@@ -10,7 +10,7 @@ import keyboards.user as kb
 router = Router()
     
 async def start_handler(message: Message):
-    await repo.create_user(user_id=message.from_user.id, full_name=message.from_user.full_name, username=message.from_user.username)
+    await repo.create_user(telegram_id=message.from_user.id, full_name=message.from_user.full_name, username=message.from_user.username)
     await message.answer(f'Hi, {html.escape(message.from_user.full_name)}, добро пожаловать в систему заказов.',
                          reply_markup=kb.start_menu)
     

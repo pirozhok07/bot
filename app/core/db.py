@@ -1,5 +1,7 @@
 import aiosqlite
 
+from loguru import logger
+
 from config import Settings
 
 
@@ -13,7 +15,7 @@ class DBConnect:
     async def connect(self):
         self.connection = await aiosqlite.connect(self.db_url)
         self.cursor = await self.connection.cursor()
-        self.cursor.execute('''
+        await self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS customers(
                        customer_id INTEGER PRIMARY KEY AUTOINCREMENT,
                        telegram_id INTEGER UNIQUE NOT NULL,
@@ -21,6 +23,7 @@ class DBConnect:
                        username TEXT,
                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)
                        ''')
+        logger.error("Add table CUSTOMER")
 
     async def close(self):
         await self.cursor.close()
