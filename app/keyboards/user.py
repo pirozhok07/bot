@@ -1,4 +1,5 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 start_menu = ReplyKeyboardMarkup(
     resize_keyboard=True,
@@ -18,11 +19,8 @@ sub_menu = InlineKeyboardMarkup(
          ]
     ])
 
-category_menu = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [
-            InlineKeyboardButton(text='категория 1', callback_data='category_1'),
-            InlineKeyboardButton(text='категория 2', callback_data='category_2'),
-            InlineKeyboardButton(text='категория 3', callback_data='category_3')
-          ]
-    ])
+def get_categories_kb(categories):
+    category_menu = InlineKeyboardBuilder()
+    for category in categories:
+        category_menu.add(InlineKeyboardButton(text=category, callback_data=f"category_{category}"))
+    category_menu.as_markup()
