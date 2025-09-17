@@ -8,6 +8,14 @@ class DBConnect:
         self.db_url = db_url
         self.connection: aiosqlite.Connection = None
         self.cursor: aiosqlite.Cursor = None
+        self.cursor.execute('''
+            CREATE TABLE IF NOT EXISTS customers(
+                       customer_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                       telegram_id INTEGER UNIQUE NOT NULL,
+                       full_name TEXT,
+                       username TEXT,
+                       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)
+                       ''')
 
     async def connect(self):
         self.connection = await aiosqlite.connect(self.db_url)
