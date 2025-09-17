@@ -13,7 +13,7 @@ from aiogram.enums import ParseMode
 from core.router_manager import setup_routers
 
 from core.config import Settings
-# from src.core.db import db
+from core.db import db
 
 
 async def main():
@@ -28,10 +28,10 @@ async def main():
 
     bot_info = await bot.get_me()
 
-    # await db.connect()
+    await db.connect()
 
-    # dp = Dispatcher(config=config, bot_info=bot_info, db=db)
-    dp = Dispatcher(config=config, bot_info=bot_info)
+    dp = Dispatcher(config=config, bot_info=bot_info, db=db)
+    # dp = Dispatcher(config=config, bot_info=bot_info)
     dp.include_routers(router)
 
     # dp.update.outer_middleware(LoggerMiddleware())
@@ -45,7 +45,7 @@ async def main():
         await dp.start_polling(bot)
     finally:
         await bot.session.close()
-        # await db.close()
+        await db.close()
 
 
 def cli():
