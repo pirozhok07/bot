@@ -72,5 +72,5 @@ async def add_items_into_table_products():
 
 async def get_categories():
     logger.error("get_categories")
-    return await db.execute("SELECT DISTINCT category FROM products WHERE is_available = TRUE")
+    return await db.fetchall("SELECT DISTINCT category FROM products WHERE is_available = TRUE")
     
