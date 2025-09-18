@@ -1,5 +1,6 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
+from loguru import logger
 
 start_menu = ReplyKeyboardMarkup(
     resize_keyboard=True,
@@ -24,5 +25,7 @@ def get_categories_kb(categories):
     i=0
     for category in categories:
         category_menu.add(InlineKeyboardButton(text=category[0], callback_data=f"category_{i}"))
+        logger.warning(f"category_{i}")
         i+=1
+
     return category_menu.as_markup()
