@@ -64,11 +64,14 @@ async def check_table_carts():
     logger.error("table carts")
 
 async def add_items_into_table_products():
-    await db.execute('''
+    try:
+        await db.execute('''
             INSERT INTO products (product_id, name, price, description, category, is_available)
                                VALUES($1, $2, $3, $4, $5, $6)
                                ''', (1, "Продукт №1", 100, "Описание продукта №1", "категория 1", True,))
-    logger.error("add items into table products")
+        logger.error("add items into table products")
+    except Exception as e:
+        print(f"add items into table products")
 
 async def get_categories():
     logger.error("get_categories")
