@@ -68,7 +68,7 @@ async def add_items_into_table_products():
         await db.execute('''
             INSERT INTO products (product_id, name, price, description, category, is_available)
                                VALUES($1, $2, $3, $4, $5, $6)
-                               ''', (2, "Продукт №2", 100, "Описание продукта №1", "категория 2", True,))
+                               ''', (SAMPLE_PRODUCTS))
         logger.warning("add items into table products")
     except Exception as e:
         logger.error("fail add items into table products")
