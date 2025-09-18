@@ -77,5 +77,7 @@ async def get_categories():
     logger.warning("get_categories")
     a = db.fetchone("SELECT DISTINCT category FROM products WHERE is_available = TRUE")
     logger.error(a)
+    logger.error(a[0])
+    logger.error(a[1])
 
     
