@@ -22,7 +22,7 @@ async def show_goods_handler(message: Message):
 async def show_category(message: Message):
     await for_db.check_table_products()
     await for_db.add_items_into_table_products()
-    await message.answer("Категории", reply_markup=kb.get_categories_kb(await for_db.get_categories()))
+    await message.answer("Категории:", reply_markup=kb.get_categories_kb(await for_db.get_categories()))
 
 def register_handlers():
     router.message.register(start_handler, CommandStart())
