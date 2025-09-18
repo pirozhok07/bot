@@ -24,7 +24,15 @@ async def show_category(message: Message):
     
     logger.warning(await for_db.get_categories())
 
+async def test(message: Message):
+    await message.answer(f'test 1')
+    
+async def test2(message: Message):
+    await message.answer(f'test 2')
+    
 def register_handlers():
     router.message.register(start_handler, CommandStart())
     # router.message.register(show_product_handler, Command('show_product'))
     router.message.register(show_category, F.text == 'Показать товары')
+    router.message.register(test, F.text == "категория 1")
+    router.message.register(test2, F.text == 'категория 2')
