@@ -2,7 +2,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMar
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from loguru import logger
 
-from kb_gen import *
+# from kb_gen import *
 from crud import for_db
 
 start_menu = ReplyKeyboardMarkup(
@@ -23,7 +23,7 @@ sub_menu = InlineKeyboardMarkup(
          ]
     ])
 
-category_menu = create_inline_kb(1, for_db.get_categories())
+# category_menu = create_inline_kb(1, for_db.get_categories())
 
 def get_categories_kb(categories):
     category_menu = InlineKeyboardBuilder()
