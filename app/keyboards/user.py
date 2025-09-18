@@ -2,6 +2,9 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMar
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from loguru import logger
 
+from kb_gen import *
+from crud import for_db
+
 start_menu = ReplyKeyboardMarkup(
     resize_keyboard=True,
     keyboard=[
@@ -20,13 +23,17 @@ sub_menu = InlineKeyboardMarkup(
          ]
     ])
 
+category_menu = create_inline_kb(1, for_db.get_categories())
+
 def get_categories_kb(categories):
     category_menu = InlineKeyboardBuilder()
     i=0
     for category in categories:
         category_menu.row(InlineKeyboardButton(text=category[0], callback_data=f"category_{i}"))
         i+=1
-    category_menu.add(InlineKeyboardButton(text='назад', callback_data=f"back"))
+    category_menu.row(InlineKeyboardButton(text='назад', callback_data=f"back"))
+    logger.warning(*categories)
+    logger.warning(**categories)
     return category_menu.as_markup()
 
 def get_products_kb(products):
@@ -35,5 +42,5 @@ def get_products_kb(products):
     for product in products:
         products_menu.row(InlineKeyboardButton(text=f"{product[0]} {product[1]}", callback_data=f"product_{i}"))
         i+=1
-    products_menu.add(InlineKeyboardButton(text='назад', callback_data=f"back"))
+    products_menu.row(InlineKeyboardButton(text='назад', callback_data=f"back"))
     return products_menu.as_markup()
