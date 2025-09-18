@@ -77,4 +77,6 @@ async def get_categories():
     logger.warning("get_categories")
     return await db.fetchall("SELECT DISTINCT category FROM products WHERE is_available = TRUE", ())
 
-    
+async def get_products(category:str):
+    logger.warning("get_products")
+    return await db.fetchall("SELECT DISTINCT name, price FROM products WHERE is_available = TRUE AND category = $1", (category,))   
