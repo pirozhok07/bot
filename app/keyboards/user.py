@@ -32,7 +32,7 @@ def get_categories_kb(categories):
         category_menu.row(InlineKeyboardButton(text=category[0], callback_data=f"category_{i}"))
         i+=1
     category_menu.row(InlineKeyboardButton(text='назад', callback_data=f"back"))
-    logger.warning(categories)
+    logger.warning(type(categories))
 
     return category_menu.as_markup()
 
