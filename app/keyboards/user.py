@@ -22,5 +22,5 @@ sub_menu = InlineKeyboardMarkup(
 def get_categories_kb(categories):
     category_menu = InlineKeyboardBuilder()
     for category in categories:
-        category_menu.add(InlineKeyboardButton(text=category, callback_data=f"category_{category}"))
-    category_menu.as_markup()
+        category_menu.add(InlineKeyboardButton(text=category[0], callback_data=f"category_{category[0]}"))
+    return category_menu.as_markup()

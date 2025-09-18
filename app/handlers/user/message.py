@@ -20,12 +20,9 @@ async def show_goods_handler(message: Message):
     await message.answer('Категории', reply_markup=kb.category_menu)
 
 async def show_category(message: Message):
-    await message.answer('for_db.get_categories()')
     await for_db.check_table_products()
     await for_db.add_items_into_table_products()
-    await for_db.get_categories()
-    await message.answer('for_db.get_categories() 2')
-    # await message.answer(for_db.get_categories())
+    await message.answer("Категории", reply_markup=kb.get_categories_kb(await for_db.get_categories()))
 
 def register_handlers():
     router.message.register(start_handler, CommandStart())
