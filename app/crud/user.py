@@ -5,6 +5,8 @@ from loguru import logger
 async def get_user(telegram_id: int):
     a =await db.fetchone('SELECT * FROM customers WHERE telegram_id = $1', (telegram_id,))
     
+    c =await db.fetchone('SELECT * FROM products ', ())
+    logger.error(c)
     logger.error(a)
     # return await db.fetchone('SELECT * FROM customers WHERE telegram_id = $1', (telegram_id,))
 
