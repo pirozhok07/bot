@@ -2,7 +2,7 @@ import html
 
 from aiogram import Router, F
 from aiogram.filters import CommandStart, Command
-from aiogram.types import Message
+from aiogram.types import Message, CallbackQuery
 from loguru import logger
 
 import services.user as repo
@@ -24,11 +24,11 @@ async def show_category(message: Message):
     
     logger.warning(await for_db.get_categories())
 
-async def test(message: Message):
-    await message.answer(f'test 1')
+async def test(query: CallbackQuery):
+    await query.message.edit_text(f'test 1')
     
-async def test2(message: Message):
-    await message.answer(f'test 2')
+async def test2(query: CallbackQuery):
+    await query.message.edit_text(f'test 2')
 
 async def send_echo(message: Message):
     await message.answer(text=message.text)
