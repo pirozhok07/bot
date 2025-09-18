@@ -23,6 +23,15 @@ sub_menu = InlineKeyboardMarkup(
          ]
     ])
 
+product_menu = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text='Добавить в корзину', callback_data='cancel')
+         ],[
+            InlineKeyboardButton(text='cancel', callback_data='cancel')
+         ]
+    ])
+
 # category_menu = create_inline_kb(1, for_db.get_categories())
 
 def get_categories_kb(categories):
@@ -32,8 +41,7 @@ def get_categories_kb(categories):
         category_menu.row(InlineKeyboardButton(text=category[0], callback_data=f"category_{i}"))
         i+=1
     category_menu.row(InlineKeyboardButton(text='назад', callback_data=f"back"))
-    logger.warning(type(categories))
-
+    logger.warning(type(categories)) #list
     return category_menu.as_markup()
 
 def get_products_kb(products):
