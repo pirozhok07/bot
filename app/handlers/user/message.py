@@ -23,6 +23,7 @@ async def show_category(message: Message):
     await message.answer('for_db.get_categories()')
     await for_db.check_table_products()
     await for_db.add_items_into_table_products()
+    await for_db.get_categories()
     await message.answer('for_db.get_categories() 2')
     # await message.answer(for_db.get_categories())
 
