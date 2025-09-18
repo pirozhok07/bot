@@ -31,7 +31,7 @@ async def test2(message: Message):
     await message.answer(f'test 2')
 
 async def send_echo(message: Message):
-    await message.answer(F.text)
+    await message.answer(text=message.text)
 
 def register_handlers():
     router.message.register(start_handler, CommandStart())
