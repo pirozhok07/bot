@@ -49,7 +49,7 @@ async def check_table_order_item():
                        FOREIGN KEY (order_id) REFERENCES orders(order_id),
                        FOREIGN KEY (product_id) REFERENCES products(product_id))
                        ''')
-    logger.error("table order_item")
+    logger.warning("table order_item")
 
 async def check_table_carts():
     await db.execute('''
@@ -61,7 +61,7 @@ async def check_table_carts():
                        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                        FOREIGN KEY (customer_id) REFERENCES customers(customer_id))
                        ''')
-    logger.error("table carts")
+    logger.warning("table carts")
 
 async def add_items_into_table_products():
     try:
@@ -69,9 +69,9 @@ async def add_items_into_table_products():
             INSERT INTO products (product_id, name, price, description, category, is_available)
                                VALUES($1, $2, $3, $4, $5, $6)
                                ''', (1, "Продукт №1", 100, "Описание продукта №1", "категория 1", True,))
-        logger.error("add items into table products")
+        logger.warning("add items into table products")
     except Exception as e:
-        print(f"add items into table products")
+        logger.error("fail add items into table products")
 
 async def get_categories():
     logger.error("get_categories")
