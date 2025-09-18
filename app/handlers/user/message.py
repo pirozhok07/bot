@@ -36,5 +36,6 @@ def register_handlers():
     # router.message.register(show_product_handler, Command('show_product'))
     router.message.register(show_category, F.text == 'Показать товары')
     router.callback_query.register(show_products_0, F.data =='category_0')
-    router.callback_query.register(test2, F.data =='category_1')
+    router.callback_query.register(show_product_menu, F.data =='product_0')
+    # router.callback_query.register(test2, F.data =='category_1')
     router.message.register(send_echo)
