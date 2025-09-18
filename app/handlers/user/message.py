@@ -3,6 +3,7 @@ import html
 from aiogram import Router, F
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
+from loguru import logger
 
 import services.user as repo
 import keyboards.user as kb
@@ -20,6 +21,8 @@ async def show_category(message: Message):
     await for_db.check_table_products()
     await for_db.add_items_into_table_products()
     await message.answer("Категории:", reply_markup=kb.get_categories_kb(await for_db.get_categories()))
+    
+    logger.warning(await for_db.get_categories())
 
 def register_handlers():
     router.message.register(start_handler, CommandStart())
