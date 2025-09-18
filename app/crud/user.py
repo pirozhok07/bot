@@ -3,7 +3,10 @@ from loguru import logger
 
 
 async def get_user(telegram_id: int):
-    return await db.fetchone('SELECT * FROM customers WHERE telegram_id = $1', (telegram_id,))
+    a =await db.fetchone('SELECT * FROM customers WHERE telegram_id = $1', (telegram_id,))
+    
+    logger.error(a)
+    # return await db.fetchone('SELECT * FROM customers WHERE telegram_id = $1', (telegram_id,))
 
 
 async def create_user(telegram_id: int, full_name: str, username:str):
